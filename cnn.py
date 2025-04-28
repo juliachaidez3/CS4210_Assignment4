@@ -42,13 +42,13 @@ X_test, Y_test = load_digit_images_from_folder(test_path)
 
 # Normalizing the data: convert pixel values from range [0, 255] to [0, 1]. Hint: divide them by 255
 # --> add your Python code here
-X_train = X_train / 255
-X_test = X_test / 255
+X_train = X_train / 255.0
+X_test = X_test / 255.0
 
 # Reshaping the input images to include the channel dimension: (num_images, height, width, channels)
 # --> add your Python code here
-X_train = X_train.reshape(X_train.shape[0], 32, 32, 1)
-X_test = X_test.reshape(X_test.shape[0], 32, 32, 1)
+X_train = X_train.reshape(-1, 32, 32, 1)
+X_test = X_test.reshape(-1, 32, 32, 1)
 
 # Building a CNN model
 model = models.Sequential([
@@ -56,7 +56,8 @@ model = models.Sequential([
     # Add a convolutional layer with 32 filters of size 3x3, relu activation, and input shape 32x32x1
     # Use layers.[add a layer here],
     # --> add your Python code here
-    layers.Conv2D(32, (3,3), activation='relu', input_shape=(32,32,1)),
+    layers.Input(shape=(32, 32, 1)),
+    layers.Conv2D(32, (3, 3), activation='relu'),
 
     # Add a max pooling layer with pool size 2x2
     # Use layers.[add a layer here],
